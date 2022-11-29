@@ -1,0 +1,42 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+df = pd.read_excel('/content/Сумма котор.чистил. Спарсенная база Авито.Новые Черёмушки.1000.xlsx')
+df
+
+df.info()
+df.isnull().sum()
+
+x = df['Площадь квартиры']
+y = df['Цена квартиры']
+plt.figure(figsize = (10,6))
+plt.scatter(x,y)
+plt.xlabel('Площадь квартиры', fontsize = 15)
+
+import seaborn as sns
+plt.figure(figsize = (10,6))
+sns.kdeplot(df['Цена 1м2'], fill = True, label = 'Плотность предложений')
+
+df_Belaevo = pd.read_excel('/content/Очищенная База.Столбец общий формат. Авито.Беляева.300.xlsx')
+print(df_Belaevo)
+plt.figure(figsize = (10,6))
+sns.kdeplot(df_Belaevo['Цена 1м2'], fill = True, label = 'Плотность предложений')
+
+x = df_Belaevo['Площадь квартиры']
+y = df_Belaevo['Цена']
+plt.figure(figsize = (10,6))
+plt.scatter(x,y)
+plt.xlabel('Площадь квартиры', fontsize = 15)
+w, e = np.polyfit(x, y, 1)
+plt.plot(x, x*w + (e-6000000), 'g')
+plt.plot(x, x*w + e, 'r')
+
+x = df_Belaevo['Площадь квартиры']
+y = df_Belaevo['Цена']
+plt.figure(figsize = (10,6))
+plt.scatter(x,y)
+plt.xlabel('Площадь квартиры', fontsize = 15)
+w, e = np.polyfit(x, y, 1)
+plt.plot(x, x*w + (e-6000000), 'g')
+plt.plot(x, x*w + e, 'r')
